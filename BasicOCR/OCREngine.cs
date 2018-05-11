@@ -29,15 +29,28 @@ namespace BasicOCR
 
         public string Recognize(Image image)
         {
-            string result;
-            string pageId;
-            XDocument document = CreatePage(out pageId);
-            var nameSpace = document.Root.Name.Namespace.ToString();
-            var element = makeImageElementFrom(nameSpace, image);
-            document = addImageElementToDocument(document, element);
-            document = updateAppWith(document, pageId);
-            result = retrieveText(document, nameSpace, pageId);
-            app.DeleteHierarchy(pageId);
+            string result = null;
+            string pageId = null;
+            try
+            {
+                XDocument document = CreatePage(out pageId);
+                var nameSpace = document.Root.Name.Namespace.ToString();
+                var element = makeImageElementFrom(nameSpace, image);
+                document = addImageElementToDocument(document, element);
+                document = updateAppWith(document, pageId);
+                result = retrieveText(document, nameSpace, pageId);
+            }
+            catch (Exception e)
+            {
+                result = e.Message;
+            }
+            finally
+            {
+                if (pageId != null)
+                {
+                    app.DeleteHierarchy(pageId);
+                }
+            }
             return result;
         }
 
