@@ -21,8 +21,6 @@ namespace BasicOCR
 
 
         private Application app;
-        private string pageId;
-        private XDocument document;
 
         public OCREngine()
         {
@@ -33,7 +31,7 @@ namespace BasicOCR
         {
             string result;
             string pageId;
-            document = CreatePage(out pageId);
+            XDocument document = CreatePage(out pageId);
             var nameSpace = document.Root.Name.Namespace.ToString();
             var element = makeImageElementFrom(nameSpace, image);
             document = addImageElementToDocument(document, element);
