@@ -63,9 +63,9 @@ namespace BasicOCR.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap noImage {
+        internal static System.Drawing.Bitmap placeholder_image {
             get {
-                object obj = ResourceManager.GetObject("noImage", resourceCulture);
+                object obj = ResourceManager.GetObject("placeholder_image", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
