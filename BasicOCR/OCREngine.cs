@@ -49,7 +49,7 @@ namespace BasicOCR
                 var nameSpace = document.Root.Name.Namespace.ToString(); //extract default namespace.
                 var element = makeImageElementFrom(nameSpace, image); //Creates image node. 
                 document.Root.Add(element);// Inserts node to xml page.
-                document = updateAppWith(document, pageId); //Send xml to onenote to reflect page updates.
+                document = updateAppWith(document, pageId); //Send xml to OneNote to reflect page updates.
                 result = retrieveText(document, nameSpace, pageId); //Retrieves OCR text from updated xml.
             }
             catch (Exception e)
