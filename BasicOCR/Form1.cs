@@ -36,21 +36,46 @@ namespace BasicOCR
 
         private void doOCR()
         {
-            if(imageBox.Image != null)
+            if (imageBox.Image != null)
             {
                 var engine = new OCREngine();
                 resultTextBox.Text = engine.Recognize(imageBox.Image);
+            } else
+            {
+                throw new Exception("Image not selected");
             }
         }
 
         private void imageBox_Click(object sender, EventArgs e)
         {
-            selectImage();
+            try
+            {
+                selectImage();
+            }catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void convertButton_Click(object sender, EventArgs e)
         {
-            doOCR();
+            try
+            {
+                doOCR();
+            }catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void closeBox_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void minimizeBox_Click(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Minimized;
         }
     }
 }
