@@ -38,17 +38,7 @@ namespace BasicOCR
             var element = makeImageElementFrom(nameSpace, image);
             document = addImageElementToDocument(document, element);
             document = updateAppWith(document, pageId);
-            
-            int total = 0;
-            do
-            {
-                Thread.Sleep(300);
-                result = getOCRText(document, nameSpace);
-                if (result != null) {
-                    break;
-                }
-                document = reloadDocumentWith(pageId);
-            } while (total++ < MAX_ATTEMPTS);
+            result = retrieveText(document, nameSpace, pageId);
             app.DeleteHierarchy(pageId);
             return result;
         }
@@ -108,6 +98,24 @@ namespace BasicOCR
                 text = ocrElement.Element(XName.Get(OCRTEXT_TAG, nameSpace)).Value;
             }
             return text;
+        }
+
+        private string retrieveText(XDocument document, string nameSpace, string pageId)
+        {
+            string result;
+            int total = 0;
+            do
+            {
+                Thread.Sleep(300);
+                result = getOCRText(document, nameSpace);
+                if (result != null)
+                {
+                    break;
+                }
+                document = reloadDocumentWith(pageId);
+            } while (total++ < MAX_ATTEMPTS);
+            
+            return result;
         }
     }
 }
